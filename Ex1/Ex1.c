@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include "Debug.h"
 
 int main()
 {
@@ -25,26 +26,29 @@ int main()
     for (i = 0; i < n; i++)
     {
         fscanf(fptr_in, "%d", (x + i));
-        printf("%d\n",*(x+i));
+        DBG("%d\n", *(x + i));
         fscanf(fptr_in, "%d", (y + i));
-        printf("%d\n",*(y+i));
+        DBG("%d\n", *(y + i));
         fscanf(fptr_in, "%d", (r + i));
-        printf("%d\n",*(r+i));
+        DBG("%d\n", *(r + i));
         length = sqrt(pow(a - *(x + i), 2) + pow(b - *(y + i), 2)) - *(r + i);
-        if (i==0)
+        if (i == 0)
         {
-            min=length;
+            min = length;
+            DBG("%f\n", min);
         }
         if (length < min)
         {
             min = length;
-        }
-        if ((int)min==min)
-        {
-            min--;
+            DBG("%f\n", min);
         }
     }
-    printf("%u",(unsigned int)min);
+    if ((int)min == min)
+    {
+        min--;
+        DBG("%f\n", min);
+    }
+    DBG("%u", (int)min);
     fclose(fptr_in);
     fptr_out = fopen("cow.out", "w");
     fprintf(fptr_out, "%u", (int)min);
