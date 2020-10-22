@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include "Debug.h"
+
+int main()
+{
+    FILE *fptr_in, *fptr_out;
+    int k = 0, n = 0, i = 0,j = 0;
+    long long unsigned int S;
+    char a[500][100][100];
+    printf("Vien dep trai");
+    fptr_in=fopen("mat.inp","r");
+    fscanf(fptr_in,"%d",&k);
+    fscanf(fptr_in,"%d",&n);
+    fscanf(fptr_in,"%d",&i);
+    fscanf(fptr_in,"%d",&j);
+    fscanf(fptr_in,"%u",&S);
+    DBG("%d\n%d\n%d\n%d\n%d\n",k,n,i,j,S);
+    fclose(fptr_in);
+    return 0;
+}
