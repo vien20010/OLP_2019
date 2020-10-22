@@ -10,9 +10,10 @@ int main()
     FILE *fptr_out;
 
     int k = 0, n = 0, i = 0, j = 0;
-    char matrix, hang, cot;
+    char matrix, hang, cot, column;
     long long unsigned int S = 0, c = 0;
     char ***A;
+    int temp[100][100], mul[100][100];
     fptr_in = fopen("mat.inp", "r");
     fscanf(fptr_in, "%d", &k);
     fscanf(fptr_in, "%d", &n);
@@ -23,6 +24,7 @@ int main()
     //char A[k][n][n];
 
     A = (char ***)malloc(k * sizeof(char **));
+
     for (matrix = 0; matrix < k; matrix++)
     {
         *(A + matrix) = (char **)malloc(n * sizeof(char *));
@@ -47,24 +49,52 @@ int main()
             }
         }
     }
+
+    fclose(fptr_in);
+
     for (hang = 0; hang < n; hang++)
     {
         for (cot = 0; cot < n; cot++)
         {
             *(*(mul + hang) + cot) = *(*(*(A + 0) + hang) + cot);
-            DBG("%d\t", *(*(mul + hang) + cot));
+            *(*(temp + hang) + cot) = *(*(mul + hang) + cot);
+            //DBG("%d\t", *(*(mul + hang) + cot));
         }
     }
-    for (matrix = 1; matrix < n; matrix++)
+
+    //Mul k matrix
+
+    for (matrix = 1; matrix < k; matrix++)
     {
         for (hang = 0; hang < n; hang++)
         {
             for (cot = 0; cot < n; cot++)
             {
-                *(mul + hang + cot) =
+                *(*(mul + hang) + cot) = 0;
+                for (column = 0; column < n; column++)
+                {
+                    *(*(mul + hang) + cot) += *(*(temp + hang) + column) * *(*(*(A + matrix) + column) + cot);
+                }
+            }
+        }
+
+        for (hang = 0; hang < n; hang++)
+        {
+            for (cot = 0; cot < n; cot++)
+            {
+                *(*(temp + hang) + cot) = *(*(mul + hang) + cot);
+                DBG("%d\t", *(*(temp + hang) + cot));
             }
         }
     }
-    fclose(fptr_in);
+
+    //Tim phan du
+
+    c = *(*(temp + i-1) + j-1);
+    DBG("%d\t%d\n", i, j);
+    DBG("%d\n", *(*(temp+i-1)+j-1));
+    fptr_out = fopen("mat.out", "w");
+    fprintf(fptr_out, "%d", c % S);
+
     return 0;
 }
