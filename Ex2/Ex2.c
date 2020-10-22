@@ -19,8 +19,8 @@ int main()
     fscanf(fptr_in, "%d", &n);
     fscanf(fptr_in, "%d", &i);
     fscanf(fptr_in, "%d", &j);
-    fscanf(fptr_in, "%u", &S);
-
+    fscanf(fptr_in, "%llu", &S);
+    //DBG("%d\n",sizeof(S));
     //char A[k][n][n];
 
     A = (char ***)malloc(k * sizeof(char **));
@@ -91,7 +91,7 @@ int main()
     //Tim phan du
 
     c = *(*(temp + i-1) + j-1);
-    DBG("%d\t%d\n", i, j);
+    DBG("\n%llu\n", S);
     DBG("%d\n", *(*(temp+i-1)+j-1));
     fptr_out = fopen("mat.out", "w");
     fprintf(fptr_out, "%d", c % S);
